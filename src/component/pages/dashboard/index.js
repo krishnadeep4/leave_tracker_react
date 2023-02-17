@@ -3,22 +3,34 @@ import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import "./calender.css";
+import { leaveDetails } from '../../../utils/constants/data'
+
+
 
 export const Dashboard = () => {
-  var dateToFormat = "2018-05-16 12:57:13"; //TIMESTAMP
-  var dateToFormat2 = "2018-05-7 12:57:13"; //TIMESTAMP
 
-  const leavedate = moment(dateToFormat).format("DD/MM/YYYY");
-  const leavedate2 = moment(dateToFormat2).format("DD/MM/YYYY");
-  const [value, onChange] = useState(new Date());
-  console.log(value);
+  const isWithinRange = (date) => {
+    var found = false;
+    leaveDetails.map((item) => {
+      var { start_date, end_date } = item;
+      if (start_date && end_date && date >= start_date && date <= end_date) {
+        found = true;
+        return;
+      }
+    })
+    return found;
+  };
+
+
   return (
     <div>
       <Calendar
-        onChange={onChange}
-        value={value}
-        showWeekNumbers={true}
-        tileContent={"rahul leave"}
+        tileClassName={({ date, view }) => {
+          const formattedDate = moment(date).format("YYYY-MM-DD");
+          if (isWithinRange(formattedDate)) {
+            return 'highlight'
+          }
+        }}
       />
     </div>
   );

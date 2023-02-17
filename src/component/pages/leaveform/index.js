@@ -12,6 +12,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useState } from 'react';
 
 
+
 export const LeaveForm = () => {
     const [value, setValue] = useState(null);
     return (
@@ -82,6 +83,7 @@ export const LeaveForm = () => {
                                     fullWidth
                                     label="Start Date"
                                     type="date"
+                                    defaultValue={new Date()}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -91,9 +93,9 @@ export const LeaveForm = () => {
                                     label="End Date"
                                     name="end_date"
                                     type="date"
-
+                                // defaultValue={new Date()}
                                 />
-                              
+
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
