@@ -13,6 +13,7 @@ export const Dashboard = () => {
     var found = false;
     leaveDetails.map((item) => {
       var { start_date, end_date } = item;
+
       if (start_date && end_date && date >= start_date && date <= end_date) {
         found = true;
         return;
@@ -27,8 +28,12 @@ export const Dashboard = () => {
       <Calendar
         tileClassName={({ date, view }) => {
           const formattedDate = moment(date).format("YYYY-MM-DD");
-          if (isWithinRange(formattedDate)) {
-            return 'highlight'
+          const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
+          const endOfMonth = moment().add(1, 'months').endOf('month').format('YYYY-MM-DD');
+          if ((moment(formattedDate).weekday() !== 0 && moment(formattedDate).weekday() != 6) && formattedDate >= startOfMonth && formattedDate <= endOfMonth) {
+            if (isWithinRange(formattedDate)) {
+              return 'highlight'
+            }
           }
         }}
       />
